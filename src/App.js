@@ -3,47 +3,60 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import data from './data.js';
+import Detail from './routes/Detail.js'
+import { Route, Routes, useNavigate, Outlet } from 'react-router-dom'
 
 function App() {
-
-  let [shoes, setShoes] = useState(data);
-
+  let [shoes] = useState(data);
+  //use로 시작하는거 = hook 유용한것들 가져다 쓰는거 
+  //페이지 이동 도와줌
+  let navigate = useNavigate();
+  //Route 로 페이지 나눔
   return (
     <div className="App">
       <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand href="#home">ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#cart">Cart</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/') }}>Home</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/detail') }}>detail</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
 
-      <div className='main-bg'>
-      </div>
-      <div className="container">
-        <div className="row">
+      <Routes>
+        <Route path="/" element={
+          <>
+            <div className='main-bg'></div>
+              <div className="container">
+                <div className="row">
+                  {shoes.map((a,i)=>{
+                      return(
+                        <Card shoes={shoes[i]} i={i+1}> </Card>
+                      )
+                    })}
+                </div>
+              </div>
+            </>
+        }/>
 
-          <Product shoes={shoes}> </Product>
-
-        </div>
-      </div>
-
+        <Route path="/detail/:id" element={<Detail shoes={shoes}/>}/>
+        <Route path="*" element={<div>404 없는 페이지 입니다.</div>}/>
+      </Routes>
 
     </div>
-  );
+  )
+  
 }
 
-function Product(props){
+
+function Card(props){
   return(
-    props.shoes.map(function(a,i){
     <div className="col-md-4">
-        <img width="80%" src="https://codingapple1.github.io/shop/shoes1.jpg"/>
-        <h4>props.shoes[i].title</h4>
-        <p>props.shoes[i].price</p>
+        <img width="80%" src={'https://codingapple1.github.io/shop/shoes' + props.i + '.jpg'}/>
+        <h4>{props.shoes.title}</h4>
+        <p>{props.shoes.price}</p>
     </div>
-    })
   )
 }
 
