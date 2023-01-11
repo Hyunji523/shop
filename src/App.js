@@ -1,13 +1,17 @@
 import './App.css';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import data from './data.js';
 import Detail from './routes/Detail.js'
-import { Route, Routes, useNavigate, Outlet } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
+import axios from 'axios';
+
+export let Context1 = createContext()
 
 function App() {
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
+  let [재고] = useState([10,11,12])
   //use로 시작하는거 = hook 유용한것들 가져다 쓰는거 
   //페이지 이동 도와줌
   let navigate = useNavigate();
@@ -37,10 +41,24 @@ function App() {
                     })}
                 </div>
               </div>
+              
+              <button onClick={()=>{
+                axios.get('https://codingapple1.github.io/shop/data'+2+'.json').then((결과)=>{
+                  let copy = [...shoes, ...결과.data]
+                  setShoes(copy)
+                  //setShoes(shoes.concat(결과.data));
+                })
+                .catch(()=>{
+                  console.log('실패함')
+                })
+              }}>더보기</button>
             </>
         }/>
-
-        <Route path="/detail/:id" element={<Detail shoes={shoes}/>}/>
+        
+        <Route path="/detail/:id" element={
+          <Context1.Provider value={{ shoes, 재고 }}>
+            <Detail shoes={shoes}/> 
+          </Context1.Provider>}/>
         <Route path="*" element={<div>404 없는 페이지 입니다.</div>}/>
       </Routes>
 
@@ -49,10 +67,9 @@ function App() {
   
 }
 
-
 function Card(props){
   return(
-    <div className="col-md-4">
+    <div className="col-md-4" onClick={ ()=>{window.location.replace("/detail/"+props.shoes.id)} }>
         <img width="80%" src={'https://codingapple1.github.io/shop/shoes' + props.i + '.jpg'}/>
         <h4>{props.shoes.title}</h4>
         <p>{props.shoes.price}</p>
