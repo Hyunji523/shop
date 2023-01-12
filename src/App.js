@@ -12,7 +12,6 @@ export let Context1 = createContext()
 
 function App() {
   let [shoes, setShoes] = useState(data);
-  let [재고] = useState([10,11,12])
   //use로 시작하는거 = hook 유용한것들 가져다 쓰는거 
   //페이지 이동 도와줌
   let navigate = useNavigate();
@@ -57,7 +56,7 @@ function App() {
         }/>
         
         <Route path="/detail/:id" element={
-          <Context1.Provider value={{ shoes, 재고 }}>
+          <Context1.Provider value={{ shoes }}>
             <Detail shoes={shoes}/> 
           </Context1.Provider>}/>
         <Route path="*" element={<div>404 없는 페이지 입니다.</div>}/>
