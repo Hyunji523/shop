@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { createContext, useState } from 'react';
 import data from './data.js';
 import Detail from './routes/Detail.js'
+import Cart from './routes/Cart.js'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
@@ -60,6 +61,7 @@ function App() {
             <Detail shoes={shoes}/> 
           </Context1.Provider>}/>
         <Route path="*" element={<div>404 없는 페이지 입니다.</div>}/>
+        <Route path="/cart" element={<Cart></Cart>}></Route>
       </Routes>
 
     </div>

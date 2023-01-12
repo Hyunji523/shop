@@ -82,7 +82,7 @@ function Tap(props){
         }
     },[props.tap])
     return (<div className={'start '+fade} >{
-        [ <div>{props.shoes[0].title}</div>, <div>{재고[1]}</div>, <div>내용2</div> ][props.tap] 
+        [ <div>{props.shoes[0].title}</div>, <div>{재고}</div>, <div>내용2</div> ][props.tap] 
     }</div>)
 }
 
