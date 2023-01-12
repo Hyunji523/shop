@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Route, useParams } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav';
+import {useDispatch} from 'react-redux';
 
 import {Context1} from './../App.js'
+import {addItem} from './../store.js'
  
 function Detail(props){
-
-    let {재고} =useContext(Context1) //보관함 해체
+    let dispatch = useDispatch();
 
     let [fade, setFade] = useState('');
     useEffect(()=>{
@@ -48,7 +49,13 @@ function Detail(props){
             <h4 className="pt-5">{num.title}</h4>
             <p>{num.content}</p>
             <p>{num.price}원</p>
-            <button className="btn btn-danger">주문하기</button> 
+            <button className="btn btn-danger" onClick={()=>{
+                let item = {id : num.id, name : num.title, count :  1 }
+                console.log(item)
+                dispatch(addItem(item))
+                
+
+                }}>주문하기</button> 
             </div>
         </div> 
         <Nav variant="tabs"  defaultActiveKey="link0">

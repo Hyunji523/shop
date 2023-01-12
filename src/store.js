@@ -28,13 +28,18 @@ let cart = createSlice({
   ] ,
   reducers : {
     upCount(state, i){
-      let idx = state.findIndex(obj => obj.id===i.payload)//파라미터는 payload붙여
+      let idx = state.findIndex(obj => obj.id===i.payload) //파라미터는 payload붙여
       state[idx].count ++
+    },
+    addItem(state, a){
+      //let item = {id : a.payload.id, name : a.payload.title, count :  1 }
+      console.log('아이템: ' + a.payload);
+      state.push(a.payload); //주문하기
     }
   }
 })
 export let { changeName } = user.actions
-export let {upCount} = cart.actions //state변경함수들 남음
+export let {upCount, addItem} = cart.actions //state변경함수들 남음
 export default configureStore({
   reducer: { 
     user : user.reducer,

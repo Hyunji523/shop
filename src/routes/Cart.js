@@ -24,6 +24,7 @@ function Cart(){
                 <tbody>
                     {
                         state.cart.map((a,i)=>{
+                            console.log(state.cart)
                             return(
                                 <tr>
                                     <td>{state.cart[i].id}</td>
