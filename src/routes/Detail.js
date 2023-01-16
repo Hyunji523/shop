@@ -50,10 +50,9 @@ function Detail(props){
             <p>{num.content}</p>
             <p>{num.price}원</p>
             <button className="btn btn-danger" onClick={()=>{
-                let item = {id : num.id, name : num.title, count :  1 }
-                console.log(item)
+                let item = { id : num.id, name : num.title, count :  1 }
                 dispatch(addItem(item))
-                
+                // cart 페이지보여줘
 
                 }}>주문하기</button> 
             </div>

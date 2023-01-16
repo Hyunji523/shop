@@ -9,13 +9,16 @@ import store from './store.js'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  
   //<React.StrictMode>
   //store.js에 있는 state App.js에서 전부 사용가능
+
   <Provider store={store}> 
     <BrowserRouter>
     <App />
     </BrowserRouter>
   </Provider>
+
   //</React.StrictMode>
 );
 
